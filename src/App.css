@@ -1,0 +1,156 @@
+/* =========================================
+   1. GLOBAL STYLES & LAYOUT
+   ========================================= */
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #fff5f7;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Hide scrollbars globally */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+/* =========================================
+   2. PAGE TRANSITIONS
+   ========================================= */
+.page {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   3. CUSTOM BUTTONS (Fixed for image_23aba0.png & image_2417db.png)
+   ========================================= */
+
+/* Back Button (Fixed styling for the grey button in your image) */
+.back-btn {
+  position: fixed !important;
+  top: 30px !important;
+  left: 20px !important;
+  z-index: 9999 !important;
+  background: white !important;
+  color: #e91e63 !important;
+  border: 2px solid #e91e63 !important;
+  padding: 10px 24px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15) !important;
+}
+
+.back-btn:hover {
+  background: #e91e63 !important;
+  color: white !important;
+  transform: translateX(-5px) !important;
+  box-shadow: 0 6px 16px rgba(233, 30, 99, 0.3) !important;
+}
+
+/* Main Action Buttons (Celebrate, Surprise, View Memories) */
+.page-nav-btn, 
+.celebrate-btn, 
+#surpriseBtn {
+  display: block !important;
+  margin: 25px auto !important;
+  padding: 14px 36px !important;
+  background: linear-gradient(135deg, #e91e63, #ff6b9d) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3) !important;
+  text-align: center !important;
+}
+
+.page-nav-btn:hover, 
+.celebrate-btn:hover, 
+#surpriseBtn:hover {
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 12px 28px rgba(233, 30, 99, 0.45) !important;
+}
+
+.celebrate-btn:disabled, 
+#surpriseBtn:disabled {
+  background: #d1d1d1 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  opacity: 0.6 !important;
+}
+
+/* =========================================
+   4. CONTENT SECTIONS
+   ========================================= */
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.highlight {
+  background: linear-gradient(45deg, #e91e63, #ff6b9d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+}
+
+/* Animations */
+.celebrate-btn:not(:disabled) {
+  animation: pulse-celebrate 2s infinite;
+}
+
+@keyframes pulse-celebrate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
