@@ -1,0 +1,204 @@
+/* =========================================
+   MESSAGE CARD SECTION - FINAL CORRECTED
+   ========================================= */
+
+.message {
+  padding: 15px 20px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden; /* Prevent page-level scrolling */
+  position: relative;
+}
+
+.message h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 10px 0 20px 0;
+  color: #e91e63;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+/* Curtain container */
+.curtain-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 480px;
+  max-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  flex-shrink: 0;
+}
+
+/* Curtain wrapper - Fixed Z-index logic */
+.curtain-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 10; /* Lower than message content when opened */
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.curtain-wrapper.opened {
+  pointer-events: none; /* Allows clicks to pass through to the message box */
+  z-index: 1; 
+}
+
+/* Individual curtain panels */
+.curtain {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: top;
+}
+
+.curtain-left {
+  background: linear-gradient(to right, #8b0000, #b22222, #dc143c);
+  transform-origin: left center;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+  border-right: 3px solid rgba(255, 215, 0, 0.3);
+}
+
+.curtain-right {
+  background: linear-gradient(to left, #8b0000, #b22222, #dc143c);
+  transform-origin: right center;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+  border-left: 3px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Curtain rod/valance at top */
+.curtain-rod {
+  position: absolute;
+  top: -15px;
+  left: -2%;
+  width: 104%;
+  height: 20px;
+  background: linear-gradient(to bottom, #8b7355, #654321);
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  z-index: 15;
+}
+
+/* Message content behind curtains */
+.message-content {
+  opacity: 0;
+  transform: scale(0.9);
+  position: absolute;
+  inset: 0;
+  z-index: 5; /* Initially lower than curtains */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  pointer-events: none; /* Disabled when curtains are closed */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* When revealed via JS/GSAP */
+.message-content.revealed {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  z-index: 20; /* Higher than curtains to allow scroll/click */
+  pointer-events: all;
+}
+
+/* New Scroll Box for Text + Button */
+.message-scroll-box {
+  background: rgba(255, 255, 255, 0.98);
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 600px;
+  max-height: 100%;
+  overflow-y: auto !important; /* CRITICAL FIX: ENABLE SCROLLING */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(233, 30, 99, 0.1);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.typed-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  text-align: left;
+  white-space: pre-line;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.message-btn {
+  margin: 10px 0 15px 0 !important;
+  flex-shrink: 0;
+  background: #e91e63 !important;
+  color: white !important;
+  padding: 12px 30px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.message-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4) !important;
+}
+
+/* Custom scrollbar for message box */
+.message-scroll-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-scroll-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.message-scroll-box::-webkit-scrollbar-thumb {
+  background: rgba(233, 30, 99, 0.5);
+  border-radius: 10px;
+}
+
+/* Click hint */
+.curtain-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+  background: white;
+  color: #e91e63;
+  padding: 15px 35px;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: hintPulse 2s infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* Responsive Fixes */
+@media (max-width: 600px) {
+  .curtain-container { height: 400px; }
+  .message h2 { font-size: 1.3rem; }
+  .typed-text { font-size: 0.95rem; }
+  .message-scroll-box { padding: 20px; }
+}
